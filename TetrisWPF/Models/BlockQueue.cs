@@ -39,7 +39,7 @@ namespace TetrisWPF.Models
 
             // Pick a random block until its different from the previous
             do { NextBlock = RandomBlock(); }
-            while (block.Id != NextBlock.Id);
+            while (block.Id == NextBlock.Id);
 
             return block;
         }

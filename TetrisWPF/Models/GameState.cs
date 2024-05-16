@@ -15,7 +15,7 @@ namespace TetrisWPF.Models
             get {  return currBlock; }  
             private set 
             { 
-                value = currBlock;
+                currBlock = value;
                 // Call the Reset method to set starting position and default rotation state
                 currBlock.Reset();
 
@@ -104,6 +104,8 @@ namespace TetrisWPF.Models
                 // Current block takes its position in the grid
                 Grid[position.Row, position.Col] = CurrBlock.Id;
             }
+
+            Grid.ClearFullRows();
 
             if (IsGameOver())
             {

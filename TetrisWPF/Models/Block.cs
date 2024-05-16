@@ -45,8 +45,8 @@ namespace TetrisWPF.Models
         public void Move(int row, int col)
         {
             // Update our position as we move the block
-            offset.Row = row;
-            offset.Col = col;
+            offset.Row += row;
+            offset.Col += col;
         }
         public void Reset()
         {

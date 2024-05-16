@@ -31,6 +31,19 @@
                 
             </Border>
         </Viewbox>
+     
+        <StackPanel Grid.Column="2"
+             VerticalAlignment="Top"
+             HorizontalAlignment="Left">
+            <TextBlock Text="Next:"
+                TextAlignment="Center"
+                FontSize="35"
+                Foreground="White"
+                Margin="50,120,0,0" />
+            <Image x:Name="NextBlockImg"
+                   Margin="50,20,0,0"
+                   Width="150"/>
+        </StackPanel>
         
         <Grid x:Name="GameOverMenu"
               Background="#CC000000"

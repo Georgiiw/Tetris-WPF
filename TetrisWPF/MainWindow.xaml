@@ -5,8 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TetrisWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid Margin="0,0,-42,-100">
-
+        Title="Tetris" Height="800" Width="1200"
+        MinWidth="600" MinHeight="600"
+        KeyDown="Window_KeyDown">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.Background >
+            <ImageBrush ImageSource="\Assets\background.jpg" />
+        </Grid.Background>
+        
+        <Viewbox Grid.Column="1" Margin="0,30,0,30" >
+            <Border BorderBrush="White"
+                    BorderThickness="1">
+            <Canvas x:Name="GameCanvas"             
+                    Background="Black" 
+                    Height="600" 
+                    Width="300"
+                    ClipToBounds="True"
+                    Loaded="GameCanvas_Loaded"/>
+                
+            </Border>
+        </Viewbox>
+        
+        <Grid x:Name="GameOverMenu"
+              Background="#CC000000"
+              Grid.ColumnSpan="3"
+              Visibility="Hidden">
+            
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                
+                <TextBlock Text="Game Over"
+                           FontSize="48"
+                           TextAlignment="Center"
+                           Foreground="White"/>
+                
+                <Button Content="Play Again"
+                        FontSize="25"
+                        Background="MistyRose"
+                        Margin="0,30,0,0"
+                        Padding="10"
+                        Click="PlayAgain_Click"/>
+                
+            </StackPanel>
+            
+        </Grid>
+        
     </Grid>
 </Window>

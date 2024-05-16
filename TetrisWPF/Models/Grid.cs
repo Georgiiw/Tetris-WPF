@@ -26,6 +26,10 @@ namespace TetrisWPF.Models
         {
             return rows >=0 && rows <= Rows && cols >= 0 && cols <= Cols;
         }
+        public bool IsEmpty(int row, int col)
+        {
+            return IsValidIndex(row, col) && grid[row, col] != 0;
+        }
         public bool IsRowFull(int row)
         {
             for (int col = 0; col < Cols; col++)

@@ -28,7 +28,7 @@ namespace TetrisWPF
            Color.FromRgb(0xFF, 0xA5, 0x00),
            Color.FromRgb(0xFF, 0xFF, 0x00),
            Color.FromRgb(0x00, 0xFF, 0x00),
-           Color.FromRgb(0x99, 0x32, 0xCC),
+           Color.FromRgb(0x80, 0x00, 0x80),
            Color.FromRgb(0xFF, 0x00, 0x00),
            
         };
@@ -45,6 +45,7 @@ namespace TetrisWPF
         };
         private readonly Rectangle[,] recControls;
         private GameState gameState = new GameState();
+        private readonly int maxDelay = 1000;
         public MainWindow()
         {
             InitializeComponent();
@@ -106,7 +107,7 @@ namespace TetrisWPF
                 recControls[position.Row, position.Col].Fill = new SolidColorBrush(color);
                 // Draw ghost block of the current block
                 recControls[gameState.BlockDropDistance() + position.Row, position.Col].Fill = new SolidColorBrush(color);
-                recControls[gameState.BlockDropDistance() + position.Row, position.Col].Opacity = 0.25;
+                recControls[gameState.BlockDropDistance() + position.Row, position.Col].Opacity = 0.40;
             }
         }
         private void Draw(GameState gameState)
@@ -115,6 +116,8 @@ namespace TetrisWPF
             DrawGrid(gameState.Grid);  
             DrawBlock(gameState.CurrBlock);
             DrawNextBlock(gameState.BlockQueue);
+            ScoreText.Text = $"{gameState.Score}";
+                
         }
         private async Task StartGame()
         {
@@ -124,13 +127,15 @@ namespace TetrisWPF
             // Until the game is over we generate our next state
             while(!gameState.GameOver)
             {
-                await Task.Delay(500);
+                int delay = maxDelay - (gameState.Score / 5);
+                await Task.Delay(delay);
                 gameState.MoveDown();
                 Draw(gameState);
             }
 
             // Show game over menu when the game is over
             GameOverMenu.Visibility = Visibility.Visible;
+            FinalScore.Text = $"Score: {gameState.Score}";
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -149,7 +154,7 @@ namespace TetrisWPF
                     gameState.MoveRight();
                     break;
                 case Key.S:
-                    gameState.MoveDown();
+                    gameState.MoveDown(); gameState.Score++;                
                     break;
                 case Key.W:
                     gameState.RotateBlockCW();

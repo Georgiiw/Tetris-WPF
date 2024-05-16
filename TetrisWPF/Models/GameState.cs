@@ -9,6 +9,7 @@ namespace TetrisWPF.Models
     public class GameState
     {
         private Block currBlock { get; set; }
+        public int Score { get; set; }
 
         public Block CurrBlock 
         { 
@@ -104,9 +105,25 @@ namespace TetrisWPF.Models
                 // Current block takes its position in the grid
                 Grid[position.Row, position.Col] = CurrBlock.Id;
             }
-
-            Grid.ClearFullRows();
-
+         
+            int scoreToAdd = Grid.ClearFullRows();
+            if (scoreToAdd == 1)
+            {
+                Score += 40;
+            }
+            else if (scoreToAdd == 2)
+            {
+                Score += 100;
+            }
+            else if (scoreToAdd == 3)
+            {
+                Score += 300;
+            }
+            else if (scoreToAdd > 3)
+            {
+                Score += 500;
+            }
+            
             if (IsGameOver())
             {
                 GameOver = true;
@@ -124,7 +141,7 @@ namespace TetrisWPF.Models
             if (!IsValidPosition())
             {
                 // If the position (1, 0) is not valid we call PlaceBlock method
-                CurrBlock.Move(-1, 0);
+                CurrBlock.Move(-1, 0); 
                 PlaceBlock();
             }
         }
@@ -157,6 +174,7 @@ namespace TetrisWPF.Models
             // Move the current block down as many rows as possible and place it in the grid
             CurrBlock.Move(BlockDropDistance(), 0);
             PlaceBlock();
+            Score += BlockDropDistance();
         }
     }
 }

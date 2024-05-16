@@ -12,7 +12,7 @@ namespace TetrisWPF.Models.Blocks
         {
             [new(0,1), new(1,0), new(1,1), new(1,2)],
             [new(0,1), new(1,1), new(1,2), new(2,1)],
-            [new(0,1), new(1,1), new(1,2), new(2,1)],
+            [new(1,0), new(1,1), new(1,2), new(2,1)],
             [new(0,1), new(1,0), new(1,1), new(2,1)]
         };
         public override string Color => "#9932CC";

@@ -34,6 +34,7 @@ namespace TetrisWPF.Models
         public Grid Grid { get; }
         public BlockQueue BlockQueue { get; }
         public bool GameOver { get; private set; }
+        public bool IsPaused  { get; private set; }
 
         public GameState()
         {
@@ -175,6 +176,10 @@ namespace TetrisWPF.Models
             CurrBlock.Move(BlockDropDistance(), 0);
             PlaceBlock();
             Score += BlockDropDistance();
+        }
+        public void Pause()
+        {
+            IsPaused = !IsPaused;
         }
     }
 }

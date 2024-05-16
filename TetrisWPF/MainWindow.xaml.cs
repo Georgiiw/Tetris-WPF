@@ -126,11 +126,15 @@ namespace TetrisWPF
 
             // Until the game is over we generate our next state
             while(!gameState.GameOver)
-            {
+            {         
                 int delay = maxDelay - (gameState.Score / 5);
                 await Task.Delay(delay);
-                gameState.MoveDown();
-                Draw(gameState);
+
+                if (!gameState.IsPaused)
+                {
+                    gameState.MoveDown();                 
+                    Draw(gameState);   
+                }
             }
 
             // Show game over menu when the game is over
@@ -148,22 +152,43 @@ namespace TetrisWPF
             switch(e.Key)
             {
                 case Key.A:
-                    gameState.MoveLeft();
+                    if (!gameState.IsPaused)
+                    {
+                        gameState.MoveLeft();                      
+                    }
                     break;
                 case Key.D:
-                    gameState.MoveRight();
+                    if (!gameState.IsPaused)
+                    {
+                        gameState.MoveRight();
+                    }
                     break;
                 case Key.S:
-                    gameState.MoveDown(); gameState.Score++;                
+                    if (!gameState.IsPaused)
+                    {
+                        gameState.MoveDown(); gameState.Score++;
+                    }             
                     break;
                 case Key.W:
-                    gameState.RotateBlockCW();
+                    if (!gameState.IsPaused)
+                    {
+                        gameState.RotateBlockCW();
+                    }
                     break;
                 case Key.Q:
-                    gameState.RotateBlockCCW();
+                    if (!gameState.IsPaused)
+                    {
+                        gameState.RotateBlockCCW();
+                    }
                     break;
                 case Key.Space:
-                    gameState.DropBlock();
+                    if (!gameState.IsPaused)
+                    {
+                        gameState.DropBlock();
+                    }
+                    break;
+                case Key.Escape:
+                    gameState.Pause(); PauseMenu.Visibility = gameState.IsPaused ? Visibility.Visible: Visibility.Hidden;
                     break;
                 default: return;
             }

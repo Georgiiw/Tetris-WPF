@@ -90,5 +90,16 @@
             
         </Grid>
         
+        <Grid x:Name="PauseMenu"
+              Background="#CC000000"
+              Grid.ColumnSpan="3"
+              Visibility="Hidden">
+            <TextBlock Text="Paused"
+                       FontSize="48"
+                       TextAlignment="Center"
+                       Foreground="White"
+                       VerticalAlignment="Center"/>
+        </Grid>
+        
     </Grid>
 </Window>

@@ -17,6 +17,9 @@
     <None Remove="Assets\6.png" />
     <None Remove="Assets\7.png" />
     <None Remove="Assets\background.jpg" />
+    <None Remove="Assets\gameSong.wav" />
+    <None Remove="Assets\goku.png" />
+    <None Remove="Assets\song.wav" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +31,13 @@
     <Resource Include="Assets\6.png" />
     <Resource Include="Assets\7.png" />
     <Resource Include="Assets\background.jpg" />
+    <Resource Include="Assets\goku.png" />
+    <Content Include="Assets\gameSong.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\song.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

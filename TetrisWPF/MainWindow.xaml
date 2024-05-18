@@ -52,6 +52,7 @@
         <StackPanel Grid.Column="2"
              VerticalAlignment="Top"
              HorizontalAlignment="Left">
+
             <TextBlock Text="Next:"
                 TextAlignment="Center"
                 FontSize="35"
@@ -94,11 +95,25 @@
               Background="#CC000000"
               Grid.ColumnSpan="3"
               Visibility="Hidden">
+            <StackPanel HorizontalAlignment="Center"
+             VerticalAlignment="Center">
+                
             <TextBlock Text="Paused"
                        FontSize="48"
                        TextAlignment="Center"
                        Foreground="White"
                        VerticalAlignment="Center"/>
+            <MediaElement x:Name="mediaElement"
+                          LoadedBehavior="Manual"
+                          Volume="0.4"
+                          MediaEnded="mediaElement_MediaEnded"/>
+            <Button Content="Mute music"
+                    FontSize="20"
+                    Background="MistyRose"
+                    Margin="0,30,0,0"
+                    Padding="4"
+                    Click="Mute_Click"/>
+            </StackPanel>
         </Grid>
         
     </Grid>

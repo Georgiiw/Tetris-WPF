@@ -1,4 +1,5 @@
 ﻿
+using System.Media;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,7 +32,7 @@ namespace TetrisWPF
            Color.FromRgb(0x80, 0x00, 0x80),
            Color.FromRgb(0xFF, 0x00, 0x00),
            
-        };
+        };      
         private readonly ImageSource[] blockImages =
         {
             // Image of each block
@@ -50,6 +51,8 @@ namespace TetrisWPF
         {
             InitializeComponent();
             recControls = SetUpGameCanvas(gameState.Grid);
+            mediaElement.Source = new Uri("Assets/gameSong.wav", UriKind.Relative);
+            mediaElement.Play();
         }
         private Rectangle[,] SetUpGameCanvas(Models.Grid grid)
         {
@@ -106,8 +109,11 @@ namespace TetrisWPF
                 Color color = colors[block.Id];
                 recControls[position.Row, position.Col].Fill = new SolidColorBrush(color);
                 // Draw ghost block of the current block
-                recControls[gameState.BlockDropDistance() + position.Row, position.Col].Fill = new SolidColorBrush(color);
-                recControls[gameState.BlockDropDistance() + position.Row, position.Col].Opacity = 0.40;
+                if (gameState.BlockDropDistance() > 1)
+                {
+                    recControls[gameState.BlockDropDistance() + position.Row, position.Col].Fill = new SolidColorBrush(color);
+                    recControls[gameState.BlockDropDistance() + position.Row, position.Col].Opacity = 0.40;  
+                }
             }
         }
         private void Draw(GameState gameState)
@@ -127,13 +133,17 @@ namespace TetrisWPF
             // Until the game is over we generate our next state
             while(!gameState.GameOver)
             {         
-                int delay = maxDelay - (gameState.Score / 5);
+                int delay = maxDelay - (gameState.Score / 10);
                 await Task.Delay(delay);
 
                 if (!gameState.IsPaused)
                 {
-                    gameState.MoveDown();                 
+                    gameState.MoveDown();
                     Draw(gameState);   
+                    if (gameState.BlockDropDistance() == 0)
+                    {
+                        await Task.Delay(500);
+                    }
                 }
             }
 
@@ -206,6 +216,24 @@ namespace TetrisWPF
             gameState = new GameState();
             GameOverMenu.Visibility = Visibility.Hidden;
             await StartGame();
+        }
+        private void mediaElement_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            mediaElement.Position = TimeSpan.Zero;
+            mediaElement.Play();
+        }
+
+        private void Mute_Click(object sender, RoutedEventArgs e)
+        {
+            if (mediaElement.Volume != 0)
+            {
+                mediaElement.Volume = 0;
+            }
+            else
+            {
+                mediaElement.Volume = 0.4;
+            }
+
         }
     }
 }

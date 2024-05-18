@@ -173,9 +173,9 @@ namespace TetrisWPF.Models
         public void DropBlock()
         {
             // Move the current block down as many rows as possible and place it in the grid
+            Score += BlockDropDistance() * 2;
             CurrBlock.Move(BlockDropDistance(), 0);
             PlaceBlock();
-            Score += BlockDropDistance();
         }
         public void Pause()
         {
